@@ -90,3 +90,10 @@ function initParticles() {
         setTimeout(initParticles, 100);
     }
 }
+
+// init particles when ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initParticles);
+} else {
+    initParticles();
+}
