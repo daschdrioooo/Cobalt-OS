@@ -9,7 +9,7 @@
     <!--Top bar-->
     <div style="display: flex; justify-content: space-between; color: white; font-weight: bold; backdrop-filter: blur(10px); background-color: rgba(0, 0, 255, 0.5); color: #fff;">
     <!--Styling the bit where it says CobaltOS-->
-    <p style="margin-left: 16px; font-weight: 700; background-color: rgba(256, 256, 256, 0.125); padding: 8px 24px; border-radius: 16px;"> 
+    <p style="cursor: pointer; margin-left: 16px; font-weight: 700; background-color: rgba(256, 256, 256, 0.125); padding: 8px 24px; border-radius: 16px;" id="welcomeopen"> 
         CobaltOS
     </p>
 
@@ -19,11 +19,14 @@
     </p>
     </div>
     <!--Welcome screen-->
-    <div id="welcomeScreen" style="border: medium solid black; width: fit-content; padding: 16px; border-radius: 8px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white;">
+    <div class="window" id="welcome" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
     <!--Header for welcome screen window-->
-    <div id="welcomeScreenheader" style="display: flex; justify-content: space-between; color: white; font-weight: bold; backdrop-filter: blur(10px); background-color: rgba(0, 0, 255, 0.5); color: #fff; border-radius: 32px;">
-        <p style="margin-left: 16px; font-weight: 700; background-color: rgba(256, 256, 256, 0.125); padding: 8px 12px; border-radius: 16px;">
+    <div class="windowheader" id="welcomeheader">
+        <p class="windowheaderText">
             Welcome Screen
+        </p>
+        <p class="closeButton" id="welcomeclose">
+            Close
         </p>
     </div>
     <!--Welcome screen content-->

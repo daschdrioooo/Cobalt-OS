@@ -3,7 +3,7 @@ setInterval(function () { // Date and time function
         }, 1000);
 
 // Make the DIV element draggable:
-dragElement(document.getElementById("welcomeScreen"));
+dragElement(document.getElementById("welcome"));
 
 // Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
@@ -56,3 +56,27 @@ function dragElement(element) {
     document.onmousemove = null;
   }
 }
+
+// Going to try and make functions to open and close a window now
+
+var welcomeScreen = document.querySelector("#welcome")
+
+function closeWindow(element) {
+  element.style.display = "none"
+}
+
+function openWindow(element) {
+  element.style.display = "block"
+}
+
+var welcomeScreenClose = document.querySelector("#welcomeclose")
+
+var welcomeScreenOpen = document.querySelector("#welcomeopen")
+
+welcomeScreenClose.addEventListener("click", function() {
+  closeWindow(welcomeScreen);
+});
+
+welcomeScreenOpen.addEventListener("click", function() {
+  openWindow(welcomeScreen);
+});
