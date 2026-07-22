@@ -5,15 +5,36 @@
     <title>Cobalt OS</title>
     <link rel="stylesheet" href="./styles.css">
 </head>
-<body style="background-image: url(./wallpaper.gif);">
-    <div style="border: medium solid black; width: fit-content; padding: 16px; border-radius: 8px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white;">
+<body>
+    <!--Top bar-->
+    <div style="display: flex; justify-content: space-between; color: white; font-weight: bold; backdrop-filter: blur(10px); background-color: rgba(0, 0, 255, 0.5); color: #fff;">
+    <!--Styling the bit where it says CobaltOS-->
+    <p style="margin-left: 16px; font-weight: 700; background-color: rgba(256, 256, 256, 0.125); padding: 8px 24px; border-radius: 16px;"> 
+        CobaltOS
+    </p>
+
+    <!--Styling the bit around where it shows the date and time-->
+    <p id="timeElement" style="margin-right: 16px; font-weight: 700; background-color: rgba(256, 256, 256, 0.125); padding: 8px 24px; border-radius: 16px;"> 
+        Loading date and time...
+    </p>
+    </div>
+    <!--Welcome screen-->
+    <div id="welcomeScreen" style="border: medium solid black; width: fit-content; padding: 16px; border-radius: 8px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white;">
+    <!--Header for welcome screen window-->
+    <div id="welcomeScreenheader" style="display: flex; justify-content: space-between; color: white; font-weight: bold; backdrop-filter: blur(10px); background-color: rgba(0, 0, 255, 0.5); color: #fff; border-radius: 32px;">
+        <p style="margin-left: 16px; font-weight: 700; background-color: rgba(256, 256, 256, 0.125); padding: 8px 12px; border-radius: 16px;">
+            Welcome Screen
+        </p>
+    </div>
+    <!--Welcome screen content-->
     <h1>Welcome to <span id="cobalt">Cobalt OS!</span></h1>
 
     <p>Hi, I'm <span class="bold">daschdrioooo</span> and I'm making this webOS as part of <a href="https://macondo.hackclub.com/" target="_blank"><span class="bold">Hack Club's Macondo YSWS</span></a></p>
     <p>I'm 14, and from London, England. Currently on Summer holiday.</p>
-    <p>I enjoy watching football, and support Chelsea FC. I've been trying to learn how to make things with code since I was quite young as well.</p>
+    <p>I enjoy watching football, and support Chelsea FC. I've been trying to get good at playing it as well.</p>
     <p>I'm also currently watching a show called jjk, so here's the first episode of it.</p>
     <iframe width="280" height="157" src="https://www.youtube.com/embed/iGWyN2Lq36M?si=5Apse78SA_3tJFKX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
