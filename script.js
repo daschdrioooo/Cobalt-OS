@@ -7,6 +7,8 @@ dragElement(document.getElementById("welcome"));
 
 dragElement(document.querySelector("#notes"));
 
+dragElement(document.querySelector("#games"));
+
 // Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
   // Step 2: Set up variables to keep track of the element's position.
@@ -59,7 +61,7 @@ function dragElement(element) {
   }
 }
 
-// THE DRAGGING BIT IS FROM W3SCHOOLS IT'S NOT MINE the open and close bit below is mine tho
+// THE DRAGGING BIT (above) IS FROM W3SCHOOLS IT'S NOT MINE
 
 // Going to try and make functions to open and close a window now this section is a little bit messy though
 
@@ -67,9 +69,15 @@ var welcomeScreen = document.querySelector("#welcome")
 
 var notesScreen = document.querySelector("#notes")
 
+var gamesScreen = document.querySelector("#games")
+
 var notesScreenClose = document.querySelector("#notesclose")
 
+var gamesScreenClose = document.querySelector("#gamesclose")
+
 notesScreenClose.addEventListener("click", () => closeWindow(notesScreen));
+
+gamesScreenClose.addEventListener("click", () => closeWindow(gamesScreen));
 
 function closeWindow(element) {
   element.style.display = "none"
@@ -103,12 +111,19 @@ notesScreenOpen.addEventListener("click", function() {
   openWindow(notesScreen);
 });
 
+var gamesScreenOpen = document.querySelector("#gamesopen")
+
+gamesScreenOpen.addEventListener("click", function() {
+  openWindow(gamesScreen);
+});
+
 var biggestIndex = 1;
 
 // NOTE TO SELF: remember to call for each window
 
 addWindowTapHandling(welcomeScreen)
 addWindowTapHandling(notesScreen)
+addWindowTapHandling(gamesScreen)
 
 function addWindowTapHandling(element) {
   element.addEventListener("mousedown", () =>
@@ -123,6 +138,8 @@ function handleWindowTap(element) {
 }
 
 initializeWindow("notes")
+
+initializeWindow("games")
 
 function initializeWindow(elementName) {
   var screen = document.querySelector("#" + elementName)
@@ -154,7 +171,7 @@ var content = [
   },
   {
     title: "Sample Text",
-    date: "06/28/2023",
+    date: "26/07/2026",
     content: `
               <p contenteditable="True">
           Here's some sample text
