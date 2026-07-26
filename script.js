@@ -9,6 +9,8 @@ dragElement(document.querySelector("#notes"));
 
 dragElement(document.querySelector("#games"));
 
+dragElement(document.querySelector("#ai"));
+
 // Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
   // Step 2: Set up variables to keep track of the element's position.
@@ -50,7 +52,14 @@ function dragElement(element) {
     initialX = e.clientX;
     initialY = e.clientY;
     // Step 11: Update the element's new position by modifying its `top` and `left` CSS properties.
-    element.style.top = (element.offsetTop - currentY) + "px";
+    var topBarHeight = document.getElementById("top").offsetHeight;
+    var newTop = element.offsetTop - currentY;
+
+    if (newTop < topBarHeight) {
+      newTop = topBarHeight;
+    }
+
+    element.style.top = newTop + "px";
     element.style.left = (element.offsetLeft - currentX) + "px";
   }
 
@@ -71,13 +80,19 @@ var notesScreen = document.querySelector("#notes")
 
 var gamesScreen = document.querySelector("#games")
 
+var aiScreen = document.querySelector("#ai")
+
 var notesScreenClose = document.querySelector("#notesclose")
 
 var gamesScreenClose = document.querySelector("#gamesclose")
 
+var aiScreenClose = document.querySelector("#aiclose")
+
 notesScreenClose.addEventListener("click", () => closeWindow(notesScreen));
 
 gamesScreenClose.addEventListener("click", () => closeWindow(gamesScreen));
+
+aiScreenClose.addEventListener("click", () => closeWindow(aiScreen));
 
 function closeWindow(element) {
   element.style.display = "none"
@@ -117,6 +132,12 @@ gamesScreenOpen.addEventListener("click", function() {
   openWindow(gamesScreen);
 });
 
+var aiScreenOpen = document.querySelector("#aiopen")
+
+aiScreenOpen.addEventListener("click", function() {
+  openWindow(aiScreen);
+});
+
 var biggestIndex = 1;
 
 // NOTE TO SELF: remember to call for each window
@@ -124,6 +145,7 @@ var biggestIndex = 1;
 addWindowTapHandling(welcomeScreen)
 addWindowTapHandling(notesScreen)
 addWindowTapHandling(gamesScreen)
+addWindowTapHandling(aiScreen)
 
 function addWindowTapHandling(element) {
   element.addEventListener("mousedown", () =>
@@ -140,6 +162,8 @@ function handleWindowTap(element) {
 initializeWindow("notes")
 
 initializeWindow("games")
+
+initializeWindow("ai")
 
 function initializeWindow(elementName) {
   var screen = document.querySelector("#" + elementName)
@@ -215,3 +239,44 @@ function addToSideBar(index) {
 for (let i = 0; i < content.length; i++) {
   addToSideBar(i)
 }
+
+// god this ai stuff took quite a bit to figure out but yh im js linking cloudfare and and doing the ai prompt stuff here
+
+var aiInput = document.querySelector("#aiInput")
+var aiSend = document.querySelector("#aiSend")
+var aiMessages = document.querySelector("#aiMessages")
+
+aiSend.addEventListener("click", function() {
+  var userText = aiInput.value
+
+  if (userText === "") {
+    return
+  }
+
+  var userMsg = document.createElement("p")
+  userMsg.textContent = userText
+  aiMessages.appendChild(userMsg)
+
+  aiInput.value = ""
+
+  var loadingMsg = document.createElement("p")
+  loadingMsg.textContent = "..."
+  loadingMsg.id = "loadingMsg"
+  aiMessages.appendChild(loadingMsg)
+
+  fetch("https://cobalt-os-proxy.alikambalosman8.workers.dev", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt: userText })
+  })
+    .then(function(res) {
+      return res.json()
+    })
+    .then(function(data) {
+      document.getElementById("loadingMsg").remove()
+      var reply = data.candidates[0].content.parts[0].text
+      var aiMsg = document.createElement("p")
+      aiMsg.textContent = reply
+      aiMessages.appendChild(aiMsg)
+    })
+})

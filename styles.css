@@ -43,11 +43,14 @@ body {
 
 .window {
     border: medium solid black;
-    width: fit-content;
+    width: max-content;
+    max-width: 90vw;
+    max-height: 90vh;
     padding: 16px;
     border-radius: 8px;
     position: absolute; 
     background-color: white;
+    overflow: auto;
 }
 
 .windowheader {
@@ -60,6 +63,9 @@ body {
     background-color: rgba(0, 0, 255, 0.5);
     color: #fff;
     border-radius: 32px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .windowheaderText {
