@@ -81,3 +81,14 @@ body {
     background-color: rgba(255, 255, 255, 0.5);
     outline: 2px solid black;
 }
+
+#aiSend {
+    color: black;
+    background-color: #dceeff;
+    cursor: pointer;
+}
+
+#aiSend:hover {
+    color: #dceeff;
+    background-color: black;
+}
