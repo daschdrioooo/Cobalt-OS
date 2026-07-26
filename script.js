@@ -133,7 +133,7 @@ function initializeWindow(elementName) {
 var content = [
   {
     title: "Welcome",
-    date: "06/28/2023",
+    date: "26/07/2026",
     content: ` <p contenteditable="True">
           <span contenteditable="true">Welcome to <strong>Cobalt Notes</strong>
             </br>
@@ -151,6 +151,15 @@ var content = [
         </blockquote>
         </p>
         `
+  },
+  {
+    title: "Sample Text",
+    date: "06/28/2023",
+    content: `
+              <p contenteditable="True">
+          Here's some sample text
+        </p>
+      `
   }
 ]
 
@@ -162,3 +171,30 @@ function setNotesContent(index) {
 }
 
 setNotesContent(0)
+
+function addToSideBar(index) {
+	var sidebar = document.querySelector("#notesSidebar");
+
+  var note = content[index];
+
+  var newDiv = document.createElement("div");
+
+  newDiv.innerHTML = `
+    <p style="margin: 0px;">
+      ${note.title}
+    </p>
+    <p style="font-size: 12px; margin: 0px;">
+      ${note.date}
+    </p>
+  `;
+
+  newDiv.addEventListener("click", function() {
+    setNotesContent(index);
+  });
+
+  sidebar.appendChild(newDiv);
+}
+
+for (let i = 0; i < content.length; i++) {
+  addToSideBar(i)
+}
