@@ -12,7 +12,7 @@ body {
 }
 
 body {
-    /* I'm going to try and put in the webOS wallpaper */
+    /* I'm going to try and put in the webOS wallpaper its taking forever omd*/
 
     background-image: url(./wallpaper.gif); 
     background-size: cover; 
@@ -31,9 +31,14 @@ body {
     cursor: pointer;
     margin-right: 16px;
     font-weight: 700;
-    background-color: rgba(256, 0, 0, 0.5);
+    background-color: rgba(255, 0, 0, 0.5);
     padding: 8px 12px;
     border-radius: 16px;
+}
+
+.closeButton:hover {
+    background-color: white;
+    color: rgb(255, 0, 0)
 }
 
 .window {
@@ -60,7 +65,13 @@ body {
 .windowheaderText {
     margin-left: 16px;
     font-weight: 700;
-    background-color: rgba(256, 256, 256, 0.125);
+    background-color: rgba(255, 255, 255, 0.125);
     padding: 8px 12px;
     border-radius: 16px;
+}
+
+.app-icon:hover {
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.5);
+    outline: 2px solid black;
 }

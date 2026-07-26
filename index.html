@@ -6,19 +6,22 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <!--Top bar-->
-    <div style="display: flex; justify-content: space-between; color: white; font-weight: bold; backdrop-filter: blur(10px); background-color: rgba(0, 0, 255, 0.5); color: #fff;">
-    <!--Styling the bit where it says CobaltOS-->
+    <div id="top" style="display: flex; justify-content: space-between; color: white; font-weight: bold; backdrop-filter: blur(10px); background-color: rgba(0, 0, 255, 0.5); color: #fff;">
     <p style="cursor: pointer; margin-left: 16px; font-weight: 700; background-color: rgba(256, 256, 256, 0.125); padding: 8px 24px; border-radius: 16px;" id="welcomeopen"> 
         CobaltOS
     </p>
 
-    <!--Styling the bit around where it shows the date and time-->
     <p id="timeElement" style="margin-right: 16px; font-weight: 700; background-color: rgba(256, 256, 256, 0.125); padding: 8px 24px; border-radius: 16px;"> 
         Loading date and time...
     </p>
     </div>
-    <!--Welcome screen-->
+   
+    <div id="desktopApps" style="padding-top: 64px; padding-left: 16px;">
+        <div id="notesopen" class="app-icon" style="cursor: pointer; text-align: center; padding: 16px; filter: drop-shadow(0 0 8px black); width: fit-content;">
+		    <img src="./cobaltnotesicon.png" style="width: 64px; height: 64px; border-radius: 16px;">
+        </div>
+	</div>
+
     <div class="window" id="welcome" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
     <!--Header for welcome screen window-->
     <div class="windowheader" id="welcomeheader">
@@ -26,10 +29,10 @@
             Welcome Screen
         </p>
         <p class="closeButton" id="welcomeclose">
-            Close
+           [ x ]
         </p>
     </div>
-    <!--Welcome screen content-->
+    <div style="overflow-y: scroll;">
     <h1>Welcome to <span id="cobalt">Cobalt OS!</span></h1>
 
     <p>Hi, I'm <span class="bold">daschdrioooo</span> and I'm making this webOS as part of <a href="https://macondo.hackclub.com/" target="_blank"><span class="bold">Hack Club's Macondo YSWS</span></a></p>
@@ -38,6 +41,45 @@
     <p>I'm also currently watching a show called jjk, so here's the first episode of it.</p>
     <iframe width="280" height="157" src="https://www.youtube.com/embed/iGWyN2Lq36M?si=5Apse78SA_3tJFKX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
+</div>
+
+    <div class="window" id="notes" style="display: none;">
+    <!--Header for notes window-->
+    <div class="windowheader" id="notesheader">
+        <p class="windowheaderText">
+            Notes
+        </p>
+        <p class="closeButton" id="notesclose">
+            [ x ]
+        </p>
+    </div>
+    <div
+      style="background-color: white; margin: 6px; width: 520px; height: 400px; padding: 16px; display: flex;">
+      <div style="overflow-y: scroll; background-color: #eeeeee; width: 520px; margin-right: 16px; padding: 16px; border-radius: 4px; font-family: courier;">
+        <p style="margin: 0px;">Welcome</p>
+        <p style="font-size: 12px; margin: 0px;">26/07/2026</p>
+      </div>
+
+      <div id="notesContent" style="overflow-y: scroll;">
+        <!--<p contenteditable="True">
+          <span contenteditable="true">Welcome to <strong>Cobalt Notes</strong>
+            </br>
+            </br>
+            This is a place where you can write about anything that comes to mind. Whether it be a past adventure, random thoughts or just ideas to remember later.
+          </span>
+        <blockquote
+          style="background-color: #F9F9F9; margin-top: 16x; margin-bottom: 16px; margin-left: 0px; margin-right: 0px; padding: 16px; border-radius: 16px;"
+          contenteditable="true">
+          <i>Man's only limitation, within reason, lies in his development and use of his imagination.
+            </br>
+          </br>
+            ~ Napoleon Hill
+          </i>
+        </blockquote>
+        </p>-->
+      </div>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>

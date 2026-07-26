@@ -5,6 +5,8 @@ setInterval(function () { // Date and time function
 // Make the DIV element draggable:
 dragElement(document.getElementById("welcome"));
 
+dragElement(document.querySelector("#notes"));
+
 // Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
   // Step 2: Set up variables to keep track of the element's position.
@@ -57,21 +59,35 @@ function dragElement(element) {
   }
 }
 
-// Going to try and make functions to open and close a window now
+// THE DRAGGING BIT IS FROM W3SCHOOLS IT'S NOT MINE the open and close bit below is mine tho
+
+// Going to try and make functions to open and close a window now this section is a little bit messy though
 
 var welcomeScreen = document.querySelector("#welcome")
+
+var notesScreen = document.querySelector("#notes")
+
+var notesScreenClose = document.querySelector("#notesclose")
+
+notesScreenClose.addEventListener("click", () => closeWindow(notesScreen));
 
 function closeWindow(element) {
   element.style.display = "none"
 }
 
+var topBar = document.querySelector("#top")
+
 function openWindow(element) {
   element.style.display = "block"
+  biggestIndex++;
+  element.style.zIndex = biggestIndex;
+  topBar.style.zIndex = biggestIndex + 1;
 }
 
 var welcomeScreenClose = document.querySelector("#welcomeclose")
 
 var welcomeScreenOpen = document.querySelector("#welcomeopen")
+
 
 welcomeScreenClose.addEventListener("click", function() {
   closeWindow(welcomeScreen);
@@ -80,3 +96,69 @@ welcomeScreenClose.addEventListener("click", function() {
 welcomeScreenOpen.addEventListener("click", function() {
   openWindow(welcomeScreen);
 });
+
+var notesScreenOpen = document.querySelector("#notesopen")
+
+notesScreenOpen.addEventListener("click", function() {
+  openWindow(notesScreen);
+});
+
+var biggestIndex = 1;
+
+// NOTE TO SELF: remember to call for each window
+
+addWindowTapHandling(welcomeScreen)
+addWindowTapHandling(notesScreen)
+
+function addWindowTapHandling(element) {
+  element.addEventListener("mousedown", () =>
+    handleWindowTap(element)
+  )
+}
+
+function handleWindowTap(element) {
+  biggestIndex++;
+  element.style.zIndex = biggestIndex;
+  topBar.style.zIndex = biggestIndex + 1;
+}
+
+initializeWindow("notes")
+
+function initializeWindow(elementName) {
+  var screen = document.querySelector("#" + elementName)
+  addWindowTapHandling(screen)
+  dragElement(screen)
+}
+
+var content = [
+  {
+    title: "Welcome",
+    date: "06/28/2023",
+    content: ` <p contenteditable="True">
+          <span contenteditable="true">Welcome to <strong>Cobalt Notes</strong>
+            </br>
+            </br>
+            This is a place where you can write about anything that comes to mind. Whether it be a past adventure, random thoughts or just ideas to remember later.
+          </span>
+        <blockquote
+          style="background-color: #F9F9F9; margin-top: 16x; margin-bottom: 16px; margin-left: 0px; margin-right: 0px; padding: 16px; border-radius: 16px;"
+          contenteditable="true">
+          <i>Man's only limitation, within reason, lies in his development and use of his imagination.
+            </br>
+          </br>
+            ~ Napoleon Hill
+          </i>
+        </blockquote>
+        </p>
+        `
+  }
+]
+
+function setNotesContent(index) {
+
+  var notesContent = document.querySelector("#notesContent")
+
+  notesContent.innerHTML = content[index].content
+}
+
+setNotesContent(0)
