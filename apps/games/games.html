@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+<div class="window" id="games" style="display: none;">
+    <div class="windowheader" id="gamesheader">
+        <p class="windowheaderText">
+            Games
+        </p>
+        <p class="closeButton" id="gamesclose">
+            [ x ]
+        </p>
+    </div>
+    <div style="overflow-y: scroll;">
+    <!--Games from LuminSDK-->
+      <div id="lumingames"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/luminsdk/script@latest/lumin.min.js"></script>
+  <script>
+    Lumin.init({
+      container: '#lumingames',
+      theme: 'dark',
+      onReady: () => console.log('LuminSDK is ready'),
+      onError: (err) => console.error('LuminSDK error:', err),
+    });
+    </script>
+</body>
+</html>

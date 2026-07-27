@@ -5,12 +5,6 @@ setInterval(function () { // Date and time function
 // Make the DIV element draggable:
 dragElement(document.getElementById("welcome"));
 
-dragElement(document.querySelector("#notes"));
-
-dragElement(document.querySelector("#games"));
-
-dragElement(document.querySelector("#ai"));
-
 // Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
   // Step 2: Set up variables to keep track of the element's position.
@@ -76,24 +70,6 @@ function dragElement(element) {
 
 var welcomeScreen = document.querySelector("#welcome")
 
-var notesScreen = document.querySelector("#notes")
-
-var gamesScreen = document.querySelector("#games")
-
-var aiScreen = document.querySelector("#ai")
-
-var notesScreenClose = document.querySelector("#notesclose")
-
-var gamesScreenClose = document.querySelector("#gamesclose")
-
-var aiScreenClose = document.querySelector("#aiclose")
-
-notesScreenClose.addEventListener("click", () => closeWindow(notesScreen));
-
-gamesScreenClose.addEventListener("click", () => closeWindow(gamesScreen));
-
-aiScreenClose.addEventListener("click", () => closeWindow(aiScreen));
-
 function closeWindow(element) {
   element.style.display = "none"
 }
@@ -120,32 +96,11 @@ welcomeScreenOpen.addEventListener("click", function() {
   openWindow(welcomeScreen);
 });
 
-var notesScreenOpen = document.querySelector("#notesopen")
-
-notesScreenOpen.addEventListener("click", function() {
-  openWindow(notesScreen);
-});
-
-var gamesScreenOpen = document.querySelector("#gamesopen")
-
-gamesScreenOpen.addEventListener("click", function() {
-  openWindow(gamesScreen);
-});
-
-var aiScreenOpen = document.querySelector("#aiopen")
-
-aiScreenOpen.addEventListener("click", function() {
-  openWindow(aiScreen);
-});
-
 var biggestIndex = 1;
 
 // NOTE TO SELF: remember to call for each window
 
 addWindowTapHandling(welcomeScreen)
-addWindowTapHandling(notesScreen)
-addWindowTapHandling(gamesScreen)
-addWindowTapHandling(aiScreen)
 
 function addWindowTapHandling(element) {
   element.addEventListener("mousedown", () =>
@@ -159,12 +114,6 @@ function handleWindowTap(element) {
   topBar.style.zIndex = biggestIndex + 1;
 }
 
-initializeWindow("notes")
-
-initializeWindow("games")
-
-initializeWindow("ai")
-
 function initializeWindow(elementName) {
   var screen = document.querySelector("#" + elementName)
   addWindowTapHandling(screen)
@@ -177,173 +126,3 @@ if (userId === null) {
   userId = "user-" + Date.now() + "-" + Math.random().toString(36).slice(2)
   localStorage.setItem("cobaltUserId", userId)
 }
-
-var currentNoteIndex = 0
-
-function setNotesContent(index) {
-  currentNoteIndex = index
-  var notesContent = document.querySelector("#notesContent")
-  notesContent.innerHTML = content[index].content
-}
-
-var notesContent = document.querySelector("#notesContent")
-
-notesContent.addEventListener("input", function() {
-  content[currentNoteIndex].content = notesContent.innerHTML
-  saveNotes()
-})
-
-var newNoteBtn = document.querySelector("#newNoteButton")
-
-newNoteBtn.addEventListener("click", function() {
-  var newNote = { title: "New Note", date: new Date().toLocaleDateString(), content: "<p contenteditable=\"true\">New note</p>" }
-  content.push(newNote)
-  addToSideBar(content.length - 1)
-  setNotesContent(content.length - 1)
-  saveNotes()
-})
-
-var content = [
-  {
-    title: "Welcome",
-    date: "26/07/2026",
-    content: ` <p contenteditable="True">
-          <span contenteditable="true">Welcome to <strong>Cobalt Notes</strong>
-            </br>
-            </br>
-            This is a place where you can write about anything that comes to mind. Whether it be a past adventure, random thoughts or just ideas to remember later.
-          </span>
-        <blockquote
-          style="background-color: #F9F9F9; margin-top: 16x; margin-bottom: 16px; margin-left: 0px; margin-right: 0px; padding: 16px; border-radius: 16px;"
-          contenteditable="true">
-          <i>Man's only limitation, within reason, lies in his development and use of his imagination.
-            </br>
-          </br>
-            ~ Napoleon Hill
-          </i>
-        </blockquote>
-        <span contenteditable="true">
-          </br>
-          Click the New Note button to add a new note, and then you can edit it! It saves to your browser, so you can keep your notes even after you close the OS.
-        </span>
-        </p>
-        `
-  }
-]
-
-function addToSideBar(index) {
-	var sidebar = document.querySelector("#notesSidebar");
-
-  var note = content[index];
-
-  var newDiv = document.createElement("div");
-
-  newDiv.innerHTML = `
-    <p contenteditable="true" style="margin: 0px;">
-      ${note.title}
-    </p>
-    <p style="font-size: 12px; margin: 0px;">
-      ${note.date}
-    </p>
-  `;
-
-  var titleElement = newDiv.querySelector("p")
-
-  titleElement.addEventListener("input", function() {
-    content[index].title = titleElement.textContent
-    saveNotes()
-  })
-
-  newDiv.addEventListener("click", function() {
-    setNotesContent(index);
-  });
-
-  sidebar.appendChild(newDiv);
-}
-
-function saveNotes() {
-  fetch("https://cobalt-os-proxy.alikambalosman8.workers.dev/notes/save", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userId: userId, notes: content })
-  })
-}
-
-function renderNotesUI() {
-  var sidebar = document.querySelector("#notesSidebar")
-  sidebar.innerHTML = ""
-
-  for (let i = 0; i < content.length; i++) {
-    addToSideBar(i)
-  }
-
-  setNotesContent(0)
-}
-
-fetch("https://cobalt-os-proxy.alikambalosman8.workers.dev/notes/load", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ userId: userId })
-})
-  .then(function(res) {
-    return res.json()
-  })
-  .then(function(savedNotes) {
-    console.log("Loaded from server:", savedNotes)
-    if (savedNotes !== null) {
-      content = savedNotes
-    }
-    renderNotesUI()
-  })
-
-// god this ai stuff took quite a bit to figure out but yh im js linking cloudfare and and doing the ai prompt stuff here
-
-var aiInput = document.querySelector("#aiInput")
-var aiSend = document.querySelector("#aiSend")
-var aiMessages = document.querySelector("#aiMessages")
-
-aiSend.addEventListener("click", function() {
-  var userText = aiInput.value
-
-  if (userText === "") {
-    return
-  }
-
-  var userMsg = document.createElement("p")
-  userMsg.textContent = userText
-  userMsg.className = "userBubble"
-  aiMessages.appendChild(userMsg)
-
-  aiInput.value = ""
-
-  var loadingMsg = document.createElement("p")
-  loadingMsg.textContent = "..."
-  loadingMsg.id = "loadingMsg"
-  aiMessages.appendChild(loadingMsg)
-
-  fetch("https://cobalt-os-proxy.alikambalosman8.workers.dev", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt: userText })
-  })
-    .then(function(res) {
-      return res.json()
-    })
-    .then(function(data) {
-      document.getElementById("loadingMsg").remove()
-
-       if (data.error) {
-        var errMsg = document.createElement("p")
-        errMsg.textContent = "Cobalt AI is unavailable right now (rate limit reached). Try again later."
-        errMsg.className = "aiBubble"
-        aiMessages.appendChild(errMsg)
-        return
-      }
-      
-      var reply = data.candidates[0].content.parts[0].text
-      var aiMsg = document.createElement("p")
-      aiMsg.innerHTML = marked.parse(reply)
-      aiMsg.className = "aiBubble"
-      aiMessages.appendChild(aiMsg)
-    })
-})

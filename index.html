@@ -49,73 +49,37 @@
     </div>
 </div>
 
-    <div class="window" id="notes" style="display: none;">
-    <!--Header for notes window-->
-    <div class="windowheader" id="notesheader">
-        <p class="windowheaderText">
-            Notes
-        </p>
-        <p class="closeButton" id="notesclose">
-            [ x ]
-        </p>
-    </div>
-    <div style="background-color: white; margin: 6px; width: 520px; height: 400px; padding: 16px; display: flex;">
-    <div style="display: flex; flex-direction: column; width: 160px; margin-right: 16px;">
-    <button id="newNoteButton" style="cursor: pointer;">New Note</button>
-    <div id="notesSidebar" style="overflow-y: scroll; background-color: #eeeeee; padding: 16px; border-radius: 4px; font-family: courier; flex: 1;"></div>
-    </div>
-    <div id="notesContent" style="overflow-y: scroll; flex: 1;"></div>
-    </div>
-    </div>
-    
-    <div class="window" id="games" style="display: none;">
-    <!--Header for games window-->
-    <div class="windowheader" id="gamesheader">
-        <p class="windowheaderText">
-            Games
-        </p>
-        <p class="closeButton" id="gamesclose">
-            [ x ]
-        </p>
-    </div>
-    <div style="overflow-y: scroll;">
-    <!--Games from LuminSDK-->
-      <div id="lumingames"></div>
-    </div>
-    </div>
-    
-    <div class="window" id="ai" style="display: none;">
-    <!--Header for ai window-->
-    <div class="windowheader" id="aiheader">
-        <p class="windowheaderText">
-            Cobalt AI
-        </p>
-        <p class="closeButton" id="aiclose">
-            [ x ]
-        </p>
-    </div>
-    <div style="overflow-y: scroll;">
-    <div style="width: 400px; height: 300px; display: flex; flex-direction: column;">
-    <div id="aiMessages" style="flex: 1; overflow-y: scroll; background-color: #f0f0f0; padding: 12px; border-radius: 8px; margin-bottom: 8px; margin-top: 8px;">
-        <p style="text-align: center; color: rgb(89, 89, 89)">Welcome to <strong>Cobalt AI</strong></p>
-    </div>
-    <div style="display: flex; gap: 8px;">
-    <input type="text" id="aiInput" placeholder="Ask something...">
-    <button id="aiSend" style="width: 24px; height: 24px; border-radius: 50%; border: none; font-size: 18px; font-weight: 1000;">↑</button>
-    </div>
-    </div>
-    </div>
-    </div>
+    <div id="windowContainer"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luminsdk/script@latest/lumin.min.js"></script>
-  <script>
-    Lumin.init({
-      container: '#lumingames',
-      theme: 'dark',
-      onReady: () => console.log('LuminSDK is ready'),
-      onError: (err) => console.error('LuminSDK error:', err),
-    });
-    </script>
+    <script>
+  var windowFiles = ["apps/notes/notes", "apps/games/games", "apps/ai/ai"];
+  var container = document.getElementById("windowContainer");
+
+  var fetchPromises = windowFiles.map(function(name) {
+    return fetch(name + ".html")
+      .then(function(res) { return res.text(); })
+      .then(function(html) {
+        container.innerHTML += html;
+      });
+  });
+
+  Promise.all(fetchPromises).then(function() {
+    var scripts = ["script.js", "apps/notes/notes.js", "apps/games/games.js", "https://cdn.jsdelivr.net/gh/luminsdk/script@latest/lumin.min.js", "apps/games/lumin-init.js", "apps/ai/ai.js"];
+
+    var index = 0;
+    function loadNextScript() {
+      if (index >= scripts.length) return;
+      var script = document.createElement("script");
+      script.src = scripts[index];
+      script.onload = function() {
+        index++;
+        loadNextScript();
+      };
+      document.body.appendChild(script);
+    }
+    loadNextScript();
+  });
+</script>
 </body>
 </html>

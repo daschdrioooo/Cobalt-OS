@@ -1,0 +1,34 @@
+#aiSend {
+    color: black;
+    background-color: #dceeff;
+    cursor: pointer;
+}
+
+#aiSend:hover {
+    color: #dceeff;
+    background-color: black;
+}
+
+.userBubble {
+    background-color: #dceeff;
+    color: black;
+    padding: 10px 16px;
+    margin-right: 0;
+    margin-bottom: 12px;
+    width: fit-content;
+    border-radius: 20px;
+    max-width: 70%;
+    margin-left: auto;    
+}
+
+/* I know the ai bubble isnt really a bubble but idk what to call it so i js called it a bubble anyway */
+.aiBubble {
+    color: black;
+    padding: 0px 4px;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}

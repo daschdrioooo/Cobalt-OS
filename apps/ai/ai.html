@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./apps/ai/ai.css">
+</head>
+
+<body>
+    <div class="window" id="ai" style="display: none;">
+    <div class="windowheader" id="aiheader">
+        <p class="windowheaderText">
+            Cobalt AI
+        </p>
+        <p class="closeButton" id="aiclose">
+            [ x ]
+        </p>
+    </div>
+    <div style="overflow-y: scroll;">
+    <div style="width: 400px; height: 300px; display: flex; flex-direction: column;">
+    <div id="aiMessages" style="flex: 1; overflow-y: scroll; background-color: #f0f0f0; padding: 12px; border-radius: 8px; margin-bottom: 8px; margin-top: 8px;">
+        <p style="text-align: center; color: rgb(89, 89, 89)">Welcome to <strong>Cobalt AI</strong></p>
+    </div>
+    <div style="display: flex; gap: 8px;">
+    <input type="text" id="aiInput" placeholder="Ask something...">
+    <button id="aiSend" style="width: 24px; height: 24px; border-radius: 50%; border: none; font-size: 18px; font-weight: 1000;">↑</button>
+    </div>
+    </div>
+    </div>
+    </div>
+</body>
+</html>
