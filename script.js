@@ -293,6 +293,7 @@ aiSend.addEventListener("click", function() {
     })
     .then(function(data) {
       document.getElementById("loadingMsg").remove()
+      console.log(data)
       var reply = data.candidates[0].content.parts[0].text
       var aiMsg = document.createElement("p")
       aiMsg.innerHTML = marked.parse(reply)
