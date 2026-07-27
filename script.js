@@ -190,6 +190,7 @@ var notesContent = document.querySelector("#notesContent")
 
 notesContent.addEventListener("input", function() {
   content[currentNoteIndex].content = notesContent.innerHTML
+  saveNotes()
 })
 
 var newNoteBtn = document.querySelector("#newNoteButton")
@@ -199,6 +200,7 @@ newNoteBtn.addEventListener("click", function() {
   content.push(newNote)
   addToSideBar(content.length - 1)
   setNotesContent(content.length - 1)
+  saveNotes()
 })
 
 var content = [
@@ -263,6 +265,7 @@ function addToSideBar(index) {
 
   titleElement.addEventListener("input", function() {
     content[index].title = titleElement.textContent
+    saveNotes()
   })
 
   newDiv.addEventListener("click", function() {
@@ -270,6 +273,14 @@ function addToSideBar(index) {
   });
 
   sidebar.appendChild(newDiv);
+}
+
+function saveNotes() {
+  fetch("https://cobalt-os-proxy.alikambalosman8.workers.dev/notes/save", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId: userId, notes: content })
+  })
 }
 
 function renderNotesUI() {
