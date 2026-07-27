@@ -293,7 +293,15 @@ aiSend.addEventListener("click", function() {
     })
     .then(function(data) {
       document.getElementById("loadingMsg").remove()
-      console.log(data)
+
+       if (data.error) {
+        var errMsg = document.createElement("p")
+        errMsg.textContent = "Cobalt AI is unavailable right now (rate limit reached). Try again later."
+        errMsg.className = "aiBubble"
+        aiMessages.appendChild(errMsg)
+        return
+      }
+      
       var reply = data.candidates[0].content.parts[0].text
       var aiMsg = document.createElement("p")
       aiMsg.innerHTML = marked.parse(reply)
