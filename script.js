@@ -171,6 +171,24 @@ function initializeWindow(elementName) {
   dragElement(screen)
 }
 
+var currentNoteIndex = 0
+
+function setNotesContent(index) {
+  currentNoteIndex = index
+  var notesContent = document.querySelector("#notesContent")
+  notesContent.innerHTML = content[index].content
+}
+
+var notesContent = document.querySelector("#notesContent")
+
+notesContent.addEventListener("input", function() {
+  content[currentNoteIndex].content = notesContent.innerHTML
+})
+
+var newNote = document.querySelector("#newNoteButton")
+
+
+
 var content = [
   {
     title: "Welcome",
@@ -255,6 +273,7 @@ aiSend.addEventListener("click", function() {
 
   var userMsg = document.createElement("p")
   userMsg.textContent = userText
+  userMsg.className = "userBubble"
   aiMessages.appendChild(userMsg)
 
   aiInput.value = ""
@@ -276,7 +295,8 @@ aiSend.addEventListener("click", function() {
       document.getElementById("loadingMsg").remove()
       var reply = data.candidates[0].content.parts[0].text
       var aiMsg = document.createElement("p")
-      aiMsg.textContent = reply
+      aiMsg.innerHTML = marked.parse(reply)
+      aiMsg.className = "aiBubble"
       aiMessages.appendChild(aiMsg)
     })
 })
