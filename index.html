@@ -59,14 +59,12 @@
             [ x ]
         </p>
     </div>
-    <div
-      style="background-color: white; margin: 6px; width: 520px; height: 400px; padding: 16px; display: flex;">
-      <div id="notesSidebar" style="overflow-y: scroll; background-color: #eeeeee; width: 160px; margin-right: 16px; padding: 16px; border-radius: 4px; font-family: courier;">
-        <button id="newNoteButton" style="cursor: pointer;">New Note</button>
-      </div>
-
-      <div id="notesContent" style="overflow-y: scroll; flex: 1;">
-      </div>
+    <div style="background-color: white; margin: 6px; width: 520px; height: 400px; padding: 16px; display: flex;">
+    <div style="display: flex; flex-direction: column; width: 160px; margin-right: 16px;">
+    <button id="newNoteButton" style="cursor: pointer;">New Note</button>
+    <div id="notesSidebar" style="overflow-y: scroll; background-color: #eeeeee; padding: 16px; border-radius: 4px; font-family: courier; flex: 1;"></div>
+    </div>
+    <div id="notesContent" style="overflow-y: scroll; flex: 1;"></div>
     </div>
     </div>
     

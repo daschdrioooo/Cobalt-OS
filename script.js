@@ -222,28 +222,14 @@ var content = [
             ~ Napoleon Hill
           </i>
         </blockquote>
+        <span contenteditable="true">
+          </br>
+          Click the New Note button to add a new note, and then you can edit it! It saves to your browser, so you can keep your notes even after you close the OS.
+        </span>
         </p>
         `
-  },
-  {
-    title: "Sample Text",
-    date: "26/07/2026",
-    content: `
-              <p contenteditable="True">
-          Here's some sample text
-        </p>
-      `
   }
 ]
-
-function setNotesContent(index) {
-
-  var notesContent = document.querySelector("#notesContent")
-
-  notesContent.innerHTML = content[index].content
-}
-
-
 
 function addToSideBar(index) {
 	var sidebar = document.querySelector("#notesSidebar");
@@ -303,6 +289,7 @@ fetch("https://cobalt-os-proxy.alikambalosman8.workers.dev/notes/load", {
     return res.json()
   })
   .then(function(savedNotes) {
+    console.log("Loaded from server:", savedNotes)
     if (savedNotes !== null) {
       content = savedNotes
     }
