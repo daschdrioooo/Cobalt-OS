@@ -171,6 +171,13 @@ function initializeWindow(elementName) {
   dragElement(screen)
 }
 
+var userId = localStorage.getItem("cobaltUserId")
+
+if (userId === null) {
+  userId = "user-" + Date.now() + "-" + Math.random().toString(36).slice(2)
+  localStorage.setItem("cobaltUserId", userId)
+}
+
 var currentNoteIndex = 0
 
 function setNotesContent(index) {
@@ -185,9 +192,14 @@ notesContent.addEventListener("input", function() {
   content[currentNoteIndex].content = notesContent.innerHTML
 })
 
-var newNote = document.querySelector("#newNoteButton")
+var newNoteBtn = document.querySelector("#newNoteButton")
 
-
+newNoteBtn.addEventListener("click", function() {
+  var newNote = { title: "New Note", date: new Date().toLocaleDateString(), content: "<p contenteditable=\"true\">New note</p>" }
+  content.push(newNote)
+  addToSideBar(content.length - 1)
+  setNotesContent(content.length - 1)
+})
 
 var content = [
   {
@@ -229,7 +241,7 @@ function setNotesContent(index) {
   notesContent.innerHTML = content[index].content
 }
 
-setNotesContent(0)
+
 
 function addToSideBar(index) {
 	var sidebar = document.querySelector("#notesSidebar");
@@ -239,13 +251,19 @@ function addToSideBar(index) {
   var newDiv = document.createElement("div");
 
   newDiv.innerHTML = `
-    <p style="margin: 0px;">
+    <p contenteditable="true" style="margin: 0px;">
       ${note.title}
     </p>
     <p style="font-size: 12px; margin: 0px;">
       ${note.date}
     </p>
   `;
+
+  var titleElement = newDiv.querySelector("p")
+
+  titleElement.addEventListener("input", function() {
+    content[index].title = titleElement.textContent
+  })
 
   newDiv.addEventListener("click", function() {
     setNotesContent(index);
@@ -254,9 +272,31 @@ function addToSideBar(index) {
   sidebar.appendChild(newDiv);
 }
 
-for (let i = 0; i < content.length; i++) {
-  addToSideBar(i)
+function renderNotesUI() {
+  var sidebar = document.querySelector("#notesSidebar")
+  sidebar.innerHTML = ""
+
+  for (let i = 0; i < content.length; i++) {
+    addToSideBar(i)
+  }
+
+  setNotesContent(0)
 }
+
+fetch("https://cobalt-os-proxy.alikambalosman8.workers.dev/notes/load", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ userId: userId })
+})
+  .then(function(res) {
+    return res.json()
+  })
+  .then(function(savedNotes) {
+    if (savedNotes !== null) {
+      content = savedNotes
+    }
+    renderNotesUI()
+  })
 
 // god this ai stuff took quite a bit to figure out but yh im js linking cloudfare and and doing the ai prompt stuff here
 
