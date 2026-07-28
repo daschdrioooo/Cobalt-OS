@@ -98,7 +98,7 @@ welcomeScreenOpen.addEventListener("click", function() {
 
 var biggestIndex = 1;
 
-// NOTE TO SELF: remember to call for each window
+// NOTE TO SELF: remember to call function for each window
 
 addWindowTapHandling(welcomeScreen)
 
@@ -126,3 +126,11 @@ if (userId === null) {
   userId = "user-" + Date.now() + "-" + Math.random().toString(36).slice(2)
   localStorage.setItem("cobaltUserId", userId)
 }
+
+document.addEventListener("click", function(e) {
+  if (document.getElementById("terminal").contains(e.target)) {
+    emulator.keyboard_set_enabled(true)
+  } else {
+    emulator.keyboard_set_enabled(false)
+  }
+})

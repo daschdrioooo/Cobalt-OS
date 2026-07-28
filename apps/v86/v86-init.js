@@ -15,3 +15,5 @@ var emulator = new V86({
   bzimage_initrd_from_filesystem: true,
   cmdline: "rw root=host9p rootfstype=9p rootflags=trans=virtio,cache=loose modules=virtio_pci tsc=reliable"
 })
+
+emulator.keyboard_set_enabled(false)
