@@ -40,6 +40,7 @@ aiSend.addEventListener("click", function() {
   loadingMsg.textContent = "..."
   loadingMsg.id = "loadingMsg"
   aiMessages.appendChild(loadingMsg)
+  aiMessages.scrollTop = aiMessages.scrollHeight
 
   fetch("https://cobalt-os-proxy.alikambalosman8.workers.dev", {
     method: "POST",
@@ -57,6 +58,7 @@ aiSend.addEventListener("click", function() {
         errMsg.textContent = "Cobalt AI is unavailable right now (rate limit reached). Try again later."
         errMsg.className = "aiBubble"
         aiMessages.appendChild(errMsg)
+        aiMessages.scrollTop = aiMessages.scrollHeight
         return
       }
       
@@ -65,5 +67,6 @@ aiSend.addEventListener("click", function() {
       aiMsg.innerHTML = marked.parse(reply)
       aiMsg.className = "aiBubble"
       aiMessages.appendChild(aiMsg)
+      aiMessages.scrollTop = aiMessages.scrollHeight
     })
 })

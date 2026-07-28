@@ -26,6 +26,9 @@
         <div id="aiopen" class="app-icon" style="cursor: pointer; text-align: center; padding: 16px; filter: drop-shadow(0 0 8px black); width: fit-content;" >
         <img src="./cobaltaiicon.png" style="width: 64px; height: 64px; border-radius: 16px;">
         </div>
+        <div id="terminalopen" class="app-icon" style="cursor: pointer; text-align: center; padding: 16px; filter: drop-shadow(0 0 8px black); width: fit-content;" >
+        <img src="./cobaltterminalicon.png" style="width: 64px; height: 64px; border-radius: 16px;">
+        </div>
 	</div>
 
     <div class="window" id="welcome" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
@@ -53,7 +56,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-  var windowFiles = ["apps/notes/notes", "apps/games/games", "apps/ai/ai"];
+  var windowFiles = ["apps/notes/notes", "apps/games/games", "apps/ai/ai", "apps/v86/v86"];
   var container = document.getElementById("windowContainer");
 
   var fetchPromises = windowFiles.map(function(name) {
@@ -65,7 +68,7 @@
   });
 
   Promise.all(fetchPromises).then(function() {
-    var scripts = ["script.js", "apps/notes/notes.js", "apps/games/games.js", "https://cdn.jsdelivr.net/gh/luminsdk/script@latest/lumin.min.js", "apps/games/lumin-init.js", "apps/ai/ai.js"];
+    var scripts = ["script.js", "apps/notes/notes.js", "apps/games/games.js", "https://cdn.jsdelivr.net/gh/luminsdk/script@latest/lumin.min.js", "apps/games/lumin-init.js", "apps/ai/ai.js", "apps/v86/v86.js", "apps/v86/libv86.js", "apps/v86/v86-init.js"];
 
     var index = 0;
     function loadNextScript() {
